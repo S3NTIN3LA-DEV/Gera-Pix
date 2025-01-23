@@ -24,7 +24,7 @@ class Cuidados extends StatelessWidget {
               'Os QR Codes gerados por este aplicativo não foram testados em todos os bancos. Por isso, antes de confirmar qualquer transação, verifique cuidadosamente se todos os dados estão corretos.\n\nNão nos responsabilizamos por eventuais erros de transferência cometidos pelos usuários. Caso ocorra uma transferência incorreta ou por engano, entre em contato com o banco responsável para receber as devidas orientações.',
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             SelectableText(
                 'Os QRCodes foram programados a partir da documentação do BACEN BRCode 2.0.1 https://www.bcb.gov.br/content/estabilidadefinanceira/spb_docs/ManualBRCode.pdf'),
@@ -32,7 +32,7 @@ class Cuidados extends StatelessWidget {
               height: 20,
             ),
             Text(
-              'O app armazena ou compartilha meus dados bancários?',
+              'O aplicativo compartilha meus dados bancários?',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             SizedBox(

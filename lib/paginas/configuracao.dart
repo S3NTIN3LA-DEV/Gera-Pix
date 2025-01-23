@@ -45,7 +45,8 @@ class _InformacoesState extends State<Informacoes> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.save),
+              leading: Icon(
+                  podeSalvar.podeSalvar ? Icons.save : Icons.save_as_outlined),
               title: const Text('Salvar informações?'),
               trailing: Switch(
                 inactiveTrackColor: Colors.grey,
@@ -66,7 +67,7 @@ class _InformacoesState extends State<Informacoes> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.question_mark),
+              leading: const Icon(Icons.info_outline_rounded),
               title: const Text('O que é o pix?'),
               onTap: () {
                 Vibration.vibrate(duration: 50);
@@ -113,7 +114,7 @@ class _InformacoesState extends State<Informacoes> {
             const ListTile(
               leading: Icon(Icons.system_update_sharp),
               title: Text('Versão'),
-              subtitle: Text('1.1.1'),
+              subtitle: Text('1.1.4'),
             )
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gera_pix/funcoes/estrutura_criar.dart';
@@ -44,6 +45,10 @@ class _PixFormScreenState extends State<PixFormScreen> {
   String? _generatedQrCode; // Armazena o QR Code gerado
 
   void _generateQrCode() {
+    _merchantNameController.text =
+        removeDiacritics(_merchantNameController.text);
+    _merchantCityController.text =
+        removeDiacritics(_merchantCityController.text);
     if (_formKey.currentState!.validate()) {
       final pixBrCode = PixBrCode(
         payloadFormatIndicator: '01',
@@ -165,6 +170,9 @@ class _PixFormScreenState extends State<PixFormScreen> {
                       height: 100,
                       child: AdWidget(ad: _bannerAd),
                     ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   if (_generatedQrCode != null)
                     Center(
@@ -302,7 +310,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
                     cursorColor: MinhasCores.secundaria,
                     controller: _merchantNameController,
                     decoration: const InputDecoration(
-                      labelText: 'Nome do beneficiário* (sem acentos)',
+                      labelText: 'Nome do beneficiário*',
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -317,7 +325,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
                     cursorColor: MinhasCores.secundaria,
                     controller: _merchantCityController,
                     decoration: const InputDecoration(
-                      labelText: 'Cidade do beneficiário* (sem acentos)',
+                      labelText: 'Cidade do beneficiário*',
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -345,6 +353,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
                     },
                     child: const Text('Gerar QR Code'),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),

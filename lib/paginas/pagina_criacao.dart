@@ -160,202 +160,206 @@ class _PixFormScreenState extends State<PixFormScreen> {
           padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16),
           child: Form(
             key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Center(
-                    child: SizedBox(
-                      width: 320,
-                      height: 100,
-                      child: AdWidget(ad: _bannerAd),
-                    ),
+            child: Column(
+              children: [
+                Center(
+                  child: SizedBox(
+                    width: 320,
+                    height: 100,
+                    child: AdWidget(ad: _bannerAd),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  if (_generatedQrCode != null)
-                    Center(
-                      child: Column(
-                        children: [
-                          QrImageView(
-                            backgroundColor: Colors.white,
-                            gapless: true,
-                            data: _generatedQrCode!,
-                            version: QrVersions.auto,
-                            size: 300.0,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      if (_generatedQrCode != null)
+                        Center(
+                          child: Column(
+                            children: [
+                              QrImageView(
+                                backgroundColor: Colors.white,
+                                gapless: true,
+                                data: _generatedQrCode!,
+                                version: QrVersions.auto,
+                                size: 300.0,
+                              ),
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                style: MeusBotoes.botaoCopiar,
+                                onPressed: () {
+                                  Vibration.vibrate(duration: 50);
+                                  Clipboard.setData(ClipboardData(
+                                          text: _generatedQrCode.toString()))
+                                      .then((_) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor: MinhasCores.secundaria,
+                                        content: Text(
+                                            'Código Pix copiado para a área de transferência!'),
+                                        duration: Duration(seconds: 2),
+                                      ),
+                                    );
+                                  });
+                                },
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.copy,
+                                      size: 12,
+                                      color: MinhasCores.primaria,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Copiar',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            style: MeusBotoes.botaoCopiar,
-                            onPressed: () {
-                              Vibration.vibrate(duration: 50);
-                              Clipboard.setData(ClipboardData(
-                                      text: _generatedQrCode.toString()))
-                                  .then((_) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    backgroundColor: MinhasCores.secundaria,
-                                    content: Text(
-                                        'Código Pix copiado para a área de transferência!'),
-                                    duration: Duration(seconds: 2),
-                                  ),
-                                );
-                              });
-                            },
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.copy,
-                                  size: 12,
-                                  color: MinhasCores.primaria,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  'Copiar',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  const SizedBox(height: 16),
-                  DropdownButtonFormField(
-                    value: chaveSelecionada,
-                    items: chaves.map((String type) {
-                      return DropdownMenuItem<String>(
-                        value: type,
-                        child: Text(type),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      Vibration.vibrate(duration: 50);
-                      setState(() {
-                        chaveSelecionada = newValue!;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    cursorColor: MinhasCores.secundaria,
-                    controller: pixKeyController,
-                    decoration: InputDecoration(
-                      labelText: verificaChave(),
-                    ),
-                    keyboardType: chaveSelecionada == 'Telefone' ||
-                            chaveSelecionada == 'CPF/CNPJ'
-                        ? TextInputType.number
-                        : TextInputType.text,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Informe a chave Pix';
-                      }
-                      if (chaveSelecionada == 'Telefone' &&
-                          !_validatePhone(value)) {
-                        return 'Número de telefone inválido';
-                      }
-                      if (chaveSelecionada == 'CPF/CNPJ' &&
-                          !_validateCpfCnpj(value)) {
-                        return 'CPF ou CNPJ inválido';
-                      }
-                      if (chaveSelecionada == 'E-mail' &&
-                          !pixKeyController.text.contains('@')) {
-                        return 'Um e-mail precisa ter um "@"';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (chaveSelecionada == 'Telefone' &&
-                          !value.startsWith('+55')) {
-                        setState(() {
-                          pixKeyController.text = '+55$value';
-                          pixKeyController.selection =
-                              TextSelection.fromPosition(
-                            TextPosition(offset: pixKeyController.text.length),
+                        ),
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField(
+                        value: chaveSelecionada,
+                        items: chaves.map((String type) {
+                          return DropdownMenuItem<String>(
+                            value: type,
+                            child: Text(type),
                           );
-                        });
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      TextInputFormatter.withFunction(
-                        (oldValue, newValue) {
-                          final formatted = _formatCurrency(newValue.text);
-                          return newValue.copyWith(
-                            text: formatted,
-                            selection: TextSelection.collapsed(
-                                offset: formatted.length),
-                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          Vibration.vibrate(duration: 50);
+                          setState(() {
+                            chaveSelecionada = newValue!;
+                          });
                         },
                       ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        cursorColor: MinhasCores.secundaria,
+                        controller: pixKeyController,
+                        decoration: InputDecoration(
+                          labelText: verificaChave(),
+                        ),
+                        keyboardType: chaveSelecionada == 'Telefone' ||
+                                chaveSelecionada == 'CPF/CNPJ'
+                            ? TextInputType.number
+                            : TextInputType.text,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Informe a chave Pix';
+                          }
+                          if (chaveSelecionada == 'Telefone' &&
+                              !_validatePhone(value)) {
+                            return 'Número de telefone inválido';
+                          }
+                          if (chaveSelecionada == 'CPF/CNPJ' &&
+                              !_validateCpfCnpj(value)) {
+                            return 'CPF ou CNPJ inválido';
+                          }
+                          if (chaveSelecionada == 'E-mail' &&
+                              !pixKeyController.text.contains('@')) {
+                            return 'Um e-mail precisa ter um "@"';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          if (chaveSelecionada == 'Telefone' &&
+                              !value.startsWith('+55')) {
+                            setState(() {
+                              pixKeyController.text = '+55$value';
+                              pixKeyController.selection =
+                                  TextSelection.fromPosition(
+                                TextPosition(
+                                    offset: pixKeyController.text.length),
+                              );
+                            });
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          TextInputFormatter.withFunction(
+                            (oldValue, newValue) {
+                              final formatted = _formatCurrency(newValue.text);
+                              return newValue.copyWith(
+                                text: formatted,
+                                selection: TextSelection.collapsed(
+                                    offset: formatted.length),
+                              );
+                            },
+                          ),
+                        ],
+                        cursorColor: MinhasCores.secundaria,
+                        controller: _transactionAmountController,
+                        decoration: const InputDecoration(
+                          labelText: 'Valor (opcional)',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        cursorColor: MinhasCores.secundaria,
+                        controller: _merchantNameController,
+                        decoration: const InputDecoration(
+                          labelText: 'Nome do beneficiário*',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Informe o nome do beneficiário';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        cursorColor: MinhasCores.secundaria,
+                        controller: _merchantCityController,
+                        decoration: const InputDecoration(
+                          labelText: 'Cidade do beneficiário*',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Informe a cidade do beneficiário';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        style: MeusBotoes.botaoGerar,
+                        onPressed: () async {
+                          if (salvarChave.podeSalvar == true) {
+                            _salvarDados();
+                          }
+                          if (salvarChave.podeSalvar == false) {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setString('pixKey', '');
+                            await prefs.setString('name', '');
+                            await prefs.setString('city', '');
+                          }
+                          Vibration.vibrate(duration: 50);
+                          _generateQrCode();
+                          FocusScope.of(context).unfocus();
+                        },
+                        child: const Text('Gerar QR Code'),
+                      ),
+                      const SizedBox(height: 20),
                     ],
-                    cursorColor: MinhasCores.secundaria,
-                    controller: _transactionAmountController,
-                    decoration: const InputDecoration(
-                      labelText: 'Valor (opcional)',
-                    ),
-                    keyboardType: TextInputType.number,
                   ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    cursorColor: MinhasCores.secundaria,
-                    controller: _merchantNameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nome do beneficiário*',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Informe o nome do beneficiário';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    cursorColor: MinhasCores.secundaria,
-                    controller: _merchantCityController,
-                    decoration: const InputDecoration(
-                      labelText: 'Cidade do beneficiário*',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Informe a cidade do beneficiário';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    style: MeusBotoes.botaoGerar,
-                    onPressed: () async {
-                      if (salvarChave.podeSalvar == true) {
-                        _salvarDados();
-                      }
-                      if (salvarChave.podeSalvar == false) {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.setString('pixKey', '');
-                        await prefs.setString('name', '');
-                        await prefs.setString('city', '');
-                      }
-                      Vibration.vibrate(duration: 50);
-                      _generateQrCode();
-                      FocusScope.of(context).unfocus();
-                    },
-                    child: const Text('Gerar QR Code'),
-                  ),
-                  const SizedBox(height: 20),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

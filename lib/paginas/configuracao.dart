@@ -114,7 +114,7 @@ class _InformacoesState extends State<Informacoes> {
             const ListTile(
               leading: Icon(Icons.system_update_sharp),
               title: Text('Versão'),
-              subtitle: Text('1.1.4'),
+              subtitle: Text('1.1.6'),
             )
           ],
         ),

@@ -54,6 +54,36 @@ class _InformacoesState extends State<Informacoes> {
                 onChanged: (value) {
                   Vibration.vibrate(duration: 50);
                   podeSalvar.permitirSalvar(value);
+                  if (value == true) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text(
+                                'Atenção',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              content: Text(
+                                'Suas informações serão salvas da próxima vez que você gerar um código!',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Vibration.vibrate(duration: 50);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Certo',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ],
+                            ));
+                  }
                 },
               ),
             ),
@@ -114,7 +144,7 @@ class _InformacoesState extends State<Informacoes> {
             const ListTile(
               leading: Icon(Icons.system_update_sharp),
               title: Text('Versão'),
-              subtitle: Text('1.1.6'),
+              subtitle: Text('1.1.7'),
             )
           ],
         ),

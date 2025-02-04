@@ -10,6 +10,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vibration/vibration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +33,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
 
   final BannerAd _bannerAd = BannerAd(
       size: const AdSize(width: 320, height: 100),
-      adUnitId: '/21775744923/example/adaptive-banner',
+      adUnitId: 'ca-app-pub-4885597820003497/4127806090',
       listener: AdManagerBannerAdListener(),
       request: const AdManagerAdRequest());
 
@@ -117,6 +118,10 @@ class _PixFormScreenState extends State<PixFormScreen> {
     await prefs.setString('city', _merchantCityController.text);
   }
 
+  void compartilharQrGerado() {
+    Share.share(_generatedQrCode.toString());
+  }
+
   @override
   void initState() {
     _bannerAd.load();
@@ -187,40 +192,74 @@ class _PixFormScreenState extends State<PixFormScreen> {
                                 size: 300.0,
                               ),
                               const SizedBox(height: 10),
-                              ElevatedButton(
-                                style: MeusBotoes.botaoCopiar,
-                                onPressed: () {
-                                  Vibration.vibrate(duration: 50);
-                                  Clipboard.setData(ClipboardData(
-                                          text: _generatedQrCode.toString()))
-                                      .then((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        backgroundColor: MinhasCores.secundaria,
-                                        content: Text(
-                                            'Código Pix copiado para a área de transferência!'),
-                                        duration: Duration(seconds: 2),
-                                      ),
-                                    );
-                                  });
-                                },
-                                child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.copy,
-                                      size: 12,
-                                      color: MinhasCores.primaria,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                    style: MeusBotoes.botaoCopiar,
+                                    onPressed: () {
+                                      Vibration.vibrate(duration: 50);
+                                      Clipboard.setData(ClipboardData(
+                                              text:
+                                                  _generatedQrCode.toString()))
+                                          .then((_) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            backgroundColor:
+                                                MinhasCores.secundaria,
+                                            content: Text(
+                                                'Código Pix copiado para a área de transferência!'),
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      });
+                                    },
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.copy,
+                                          size: 15,
+                                          color: MinhasCores.primaria,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          'Copiar',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: 5,
+                                  ),
+                                  IconButton(
+                                    style: MeusBotoes.botaoCopiar,
+                                    onPressed: () {
+                                      Vibration.vibrate(duration: 50);
+                                      compartilharQrGerado();
+                                    },
+                                    icon: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(
+                                          Icons.share_outlined,
+                                          size: 18,
+                                        ),
+                                        Text(
+                                          'Compartilhar',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      'Copiar',
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

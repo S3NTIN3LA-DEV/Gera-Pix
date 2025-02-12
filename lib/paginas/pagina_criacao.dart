@@ -196,8 +196,8 @@ class _PixFormScreenState extends State<PixFormScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  ElevatedButton(
-                                    style: MeusBotoes.botaoCopiar,
+                                  IconButton(
+                                    // style: MeusBotoes.botaoCopiar,
                                     onPressed: () {
                                       Vibration.vibrate(duration: 50);
                                       Clipboard.setData(ClipboardData(
@@ -216,7 +216,11 @@ class _PixFormScreenState extends State<PixFormScreen> {
                                         );
                                       });
                                     },
-                                    child: const Row(
+                                    icon: Icon(
+                                      Icons.copy,
+                                      size: 25,
+                                      color: Colors.black,
+                                    ), /*const Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -233,15 +237,19 @@ class _PixFormScreenState extends State<PixFormScreen> {
                                           style: TextStyle(fontSize: 12),
                                         ),
                                       ],
-                                    ),
+                                    ),*/
                                   ),
                                   IconButton(
-                                    style: MeusBotoes.botaoCopiar,
+                                    //style: MeusBotoes.botaoCopiar,
                                     onPressed: () {
                                       Vibration.vibrate(duration: 50);
                                       compartilharQrGerado();
                                     },
-                                    icon: Row(
+                                    icon: Icon(
+                                      Icons.share_outlined,
+                                      size: 25,
+                                      color: Colors.black,
+                                    ), /*Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
@@ -257,14 +265,14 @@ class _PixFormScreenState extends State<PixFormScreen> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
-                                    ),
+                                    ),*/
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10),
                       DropdownButtonFormField(
                         value: chaveSelecionada,
                         items: chaves.map((String type) {

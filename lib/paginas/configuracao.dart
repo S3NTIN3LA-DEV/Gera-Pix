@@ -98,7 +98,7 @@ class _InformacoesState extends State<Informacoes> {
             ),
             ListTile(
               leading: const Icon(Icons.info_outline_rounded),
-              title: const Text('O que é o pix?'),
+              title: const Text('Sobre o pix'),
               onTap: () {
                 Vibration.vibrate(duration: 50);
                 navegacao(context, const OQueEPix());
@@ -106,7 +106,7 @@ class _InformacoesState extends State<Informacoes> {
             ),
             ListTile(
               leading: const Icon(Icons.warning_amber_outlined),
-              title: const Text('Cuidados a tomar'),
+              title: const Text('Atenção'),
               onTap: () {
                 Vibration.vibrate(duration: 50);
                 navegacao(context, const Cuidados());

@@ -8,7 +8,7 @@ class OQueEPix extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'O que é o pix?',
+          'Sobre o pix',
         ),
       ),
       body: Padding(

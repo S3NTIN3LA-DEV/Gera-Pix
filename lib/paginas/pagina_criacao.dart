@@ -130,12 +130,6 @@ class _PixFormScreenState extends State<PixFormScreen> {
   }
 
   @override
-  void dispose() {
-    _bannerAd.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final salvarChave = context.watch<SalvarInfo>();
 
@@ -145,7 +139,9 @@ class _PixFormScreenState extends State<PixFormScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: const Icon(Icons.qr_code_2_rounded),
+          leading: Image.asset(
+            'assets/icon-gera-pix.png',
+          ),
           title: const Text('GeraPix'),
           actions: [
             IconButton(
@@ -412,6 +408,12 @@ class _PixFormScreenState extends State<PixFormScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _bannerAd.dispose();
+    super.dispose();
   }
 
   bool _validatePhone(String phone) {

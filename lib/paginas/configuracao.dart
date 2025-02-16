@@ -78,7 +78,8 @@ class _InformacoesState extends State<Informacoes> {
                                   },
                                   child: Text(
                                     'Certo',
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(
+                                        color: MinhasCores.secundaria),
                                   ),
                                 ),
                               ],
@@ -144,7 +145,7 @@ class _InformacoesState extends State<Informacoes> {
             const ListTile(
               leading: Icon(Icons.system_update_sharp),
               title: Text('Versão'),
-              subtitle: Text('1.1.7'),
+              subtitle: Text('1.1.9'),
             )
           ],
         ),

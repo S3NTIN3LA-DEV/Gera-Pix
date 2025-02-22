@@ -23,5 +23,6 @@ final ThemeData temaPadrao = ThemeData(
   ),
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.baumans(),
+    bodySmall: GoogleFonts.baumans(),
   ),
 );

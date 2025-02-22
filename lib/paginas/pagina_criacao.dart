@@ -403,7 +403,11 @@ class _PixFormScreenState extends State<PixFormScreen> {
                           _generateQrCode();
                           FocusScope.of(context).unfocus();
                         },
-                        child: const Text('Gerar QR Code'),
+                        child: Text(
+                          'Gerar QR Code',
+                          style:
+                              GoogleFonts.baumans(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const SizedBox(height: 20),
                     ],

@@ -6,6 +6,7 @@ import 'package:gera_pix/funcoes/salvar_info.dart';
 import 'package:gera_pix/paginas/configuracao.dart';
 import 'package:gera_pix/styles/botoes.dart';
 import 'package:gera_pix/styles/cores.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
 
   verificaChave() {
     if (chaveSelecionada == 'Telefone') {
-      return 'Telefone* (com DDD, apenas números)';
+      return 'Telefone* (com DDD, apenas números),';
     } else if (chaveSelecionada == 'CPF/CNPJ') {
       return 'CPF/CNPJ* (apenas números)';
     } else {
@@ -142,7 +143,10 @@ class _PixFormScreenState extends State<PixFormScreen> {
           leading: Image.asset(
             'assets/icon-gera-pix.png',
           ),
-          title: const Text('GeraPix'),
+          title: Text(
+            'GeraPix',
+            style: GoogleFonts.baumans(),
+          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -274,7 +278,10 @@ class _PixFormScreenState extends State<PixFormScreen> {
                         items: chaves.map((String type) {
                           return DropdownMenuItem<String>(
                             value: type,
-                            child: Text(type),
+                            child: Text(
+                              type,
+                              style: GoogleFonts.baumans(),
+                            ),
                           );
                         }).toList(),
                         onChanged: (String? newValue) {
@@ -344,7 +351,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
                         ],
                         cursorColor: MinhasCores.secundaria,
                         controller: _transactionAmountController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Valor (opcional)',
                         ),
                         keyboardType: TextInputType.number,

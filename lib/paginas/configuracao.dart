@@ -4,6 +4,7 @@ import 'package:gera_pix/funcoes/salvar_info.dart';
 import 'package:gera_pix/paginas/cuidados.dart';
 import 'package:gera_pix/paginas/sobre_pix.dart';
 import 'package:gera_pix/styles/cores.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -29,7 +30,10 @@ class _InformacoesState extends State<Informacoes> {
     final podeSalvar = context.watch<SalvarInfo>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Configurações'),
+        title: Text(
+          'Configurações',
+          style: GoogleFonts.baumans(),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -60,13 +64,13 @@ class _InformacoesState extends State<Informacoes> {
                         builder: (context) => AlertDialog(
                               title: Text(
                                 'Atenção',
-                                style: TextStyle(
+                                style: GoogleFonts.baumans(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                               content: Text(
                                 'Suas informações serão salvas da próxima vez que você gerar um código!',
-                                style: TextStyle(
+                                style: GoogleFonts.baumans(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -78,7 +82,7 @@ class _InformacoesState extends State<Informacoes> {
                                   },
                                   child: Text(
                                     'Certo',
-                                    style: TextStyle(
+                                    style: GoogleFonts.baumans(
                                         color: MinhasCores.secundaria),
                                   ),
                                 ),

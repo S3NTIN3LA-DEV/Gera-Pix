@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gera_pix/funcoes/salvar_info.dart';
@@ -9,6 +10,10 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('assets/fontes/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['baumans'], license);
+  });
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(

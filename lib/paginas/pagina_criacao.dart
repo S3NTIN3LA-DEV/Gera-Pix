@@ -31,12 +31,31 @@ class _PixFormScreenState extends State<PixFormScreen> {
     'CPF/CNPJ',
     'Chave Aleatória'
   ];
+  BannerAd? _bannerAd;
 
-  final BannerAd _bannerAd = BannerAd(
+  void _loadBannerAd() {
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-4885597820003497/4127806090', // ID de teste
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('Ad loaded.');
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Ad failed to load: $error');
+        },
+      ),
+    );
+
+    _bannerAd?.load();
+  }
+
+  /*final BannerAd _bannerAd = BannerAd(
       size: const AdSize(width: 320, height: 100),
       adUnitId: 'ca-app-pub-4885597820003497/4127806090',
       listener: AdManagerBannerAdListener(),
-      request: const AdManagerAdRequest());
+      request: const AdManagerAdRequest());*/
 
   // Controladores para os campos de texto
   TextEditingController pixKeyController = TextEditingController();
@@ -125,7 +144,8 @@ class _PixFormScreenState extends State<PixFormScreen> {
 
   @override
   void initState() {
-    _bannerAd.load();
+    _loadBannerAd();
+    //_bannerAd.load();
     super.initState();
     _carregarDados();
   }
@@ -143,9 +163,8 @@ class _PixFormScreenState extends State<PixFormScreen> {
           leading: Image.asset(
             'assets/icon-gera-pix.png',
           ),
-          title: Text(
+          title: const Text(
             'GeraPix',
-            style: GoogleFonts.baumans(),
           ),
           actions: [
             IconButton(
@@ -157,7 +176,10 @@ class _PixFormScreenState extends State<PixFormScreen> {
                   ),
                 );
               },
-              icon: const Icon(Icons.settings),
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
             ),
           ],
         ),
@@ -167,13 +189,14 @@ class _PixFormScreenState extends State<PixFormScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Center(
-                  child: SizedBox(
-                    width: 320,
-                    height: 100,
-                    child: AdWidget(ad: _bannerAd),
+                if (_bannerAd != null)
+                  Center(
+                    child: SizedBox(
+                      width: _bannerAd!.size.width.toDouble(),
+                      height: _bannerAd!.size.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
                   ),
-                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -423,7 +446,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
 
   @override
   void dispose() {
-    _bannerAd.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 

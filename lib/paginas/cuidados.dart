@@ -10,7 +10,6 @@ class Cuidados extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Cuidados',
-          style: GoogleFonts.baumans(),
         ),
       ),
       body: Padding(

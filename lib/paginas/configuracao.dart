@@ -30,9 +30,8 @@ class _InformacoesState extends State<Informacoes> {
     final podeSalvar = context.watch<SalvarInfo>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Configurações',
-          style: GoogleFonts.baumans(),
         ),
       ),
       body: Padding(
@@ -149,7 +148,7 @@ class _InformacoesState extends State<Informacoes> {
             const ListTile(
               leading: Icon(Icons.system_update_sharp),
               title: Text('Versão'),
-              subtitle: Text('1.1.10'),
+              subtitle: Text('1.1.11'),
             )
           ],
         ),

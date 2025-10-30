@@ -4,7 +4,7 @@ description: "A new Flutter project."
 publish_to: 'none' 
 
 
-version: 1.1.11+15
+version: 1.2.13+17
 
 environment:
   sdk: ^3.5.4
@@ -19,14 +19,15 @@ dependencies:
   vibration: ^3.0.0
   qr_flutter: ^4.1.0
   flutter_native_splash: ^2.4.3
-  google_mobile_ads: ^5.2.0
+  google_mobile_ads: ^6.0.0
   intl: ^0.20.1
-  share_plus: ^10.1.2
+  share_plus: ^12.0.1
   url_launcher: ^6.3.1
   shared_preferences: ^2.3.4
   provider: ^6.1.2
   diacritic: ^0.1.6
   google_fonts: ^6.2.1
+  video_player: ^2.10.0
 
 
 
@@ -35,7 +36,7 @@ dev_dependencies:
     sdk: flutter
 
   
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter_native_splash:
   color: '#EEEEEE'
@@ -53,6 +54,7 @@ flutter:
   assets:
     - assets/
     - assets/fontes/OFL.txt
+    - assets/videos/intro.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

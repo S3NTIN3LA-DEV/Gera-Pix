@@ -22,7 +22,7 @@ class _InformacoesState extends State<Informacoes> {
       'https://play.google.com/store/apps/details?id=com.gera.pix';
 
   void compartilharApp() {
-    Share.share(linkDoApp);
+    SharePlus.instance.share(ShareParams(text: linkDoApp));
   }
 
   @override
@@ -148,7 +148,7 @@ class _InformacoesState extends State<Informacoes> {
             const ListTile(
               leading: Icon(Icons.system_update_sharp),
               title: Text('Versão'),
-              subtitle: Text('1.1.11'),
+              subtitle: Text('1.2.13'),
             )
           ],
         ),

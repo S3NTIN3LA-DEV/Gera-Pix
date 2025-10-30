@@ -97,7 +97,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
     }
   }
 
-  verificaChave() {
+  String verificaChave() {
     if (chaveSelecionada == 'Telefone') {
       return 'Telefone* (com DDD, apenas números),';
     } else if (chaveSelecionada == 'CPF/CNPJ') {
@@ -139,7 +139,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
   }
 
   void compartilharQrGerado() {
-    Share.share(_generatedQrCode.toString());
+    SharePlus.instance.share(ShareParams(text: _generatedQrCode));
   }
 
   @override
@@ -297,7 +297,7 @@ class _PixFormScreenState extends State<PixFormScreen> {
                         ),
                       const SizedBox(height: 10),
                       DropdownButtonFormField(
-                        value: chaveSelecionada,
+                        initialValue: chaveSelecionada,
                         items: chaves.map((String type) {
                           return DropdownMenuItem<String>(
                             value: type,

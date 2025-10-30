@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SalvarInfo with ChangeNotifier {
   bool _podeSalvar = false;
 
-  get podeSalvar => _podeSalvar;
+  bool get podeSalvar => _podeSalvar;
 
   SalvarInfo() {
     funcaoSalvar();

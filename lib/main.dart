@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gera_pix/funcoes/salvar_info.dart';
-import 'package:gera_pix/paginas/pagina_criacao.dart';
+import 'package:gera_pix/paginas/intro.dart';
 import 'package:gera_pix/styles/temas.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: temaPadrao,
-      home: const PixFormScreen(),
+      home: const AppIntro(),
     );
   }
 }
